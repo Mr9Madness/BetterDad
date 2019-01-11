@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/DadBot.csproj"
+                "${workspaceFolder}/betterdad.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

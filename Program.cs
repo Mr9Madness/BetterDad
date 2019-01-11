@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
-namespace DadBot {
+namespace BetterDad {
     public class Program {
         public static void Main (string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
