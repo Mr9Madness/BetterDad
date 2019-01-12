@@ -21,21 +21,24 @@ namespace BetterDad {
             await Task.Delay( -1 );
         }
         private async Task MessageReceived (SocketMessage message) {
-            if (message.Content.StartsWith("I'm dad")) {
-                await message.Channel.SendMessageAsync ("No you're not!");
-            } else if (message.Content.StartsWith("I'm")) {
-                await message.Channel.SendMessageAsync(message.Content.Replace("I'm", "Hi") + ", I'm dad!");
-            } else if (message.Content.StartsWith("I am")) {
-                await message.Channel.SendMessageAsync(message.Content.Replace("I am", "Hi") + ", I'm dad!");
-            } else if( message.Content.StartsWith("Im") ) {
-                await message.Channel.SendMessageAsync(message.Content.Replace("Im", "Hi") + ", I'm dad!");
-            } else if( message.Content.Contains("fuck") || message.Content.Contains("kys") ) {
+            string content = message.Content.ToLower();
+            if (content.StartsWith("i'm dad") || content.StartsWith("i am dad") || content.StartsWith("im dad") ) {
+                await message.Channel.SendMessageAsync ("No you're not, i'm the best dad!");
+            } else if( content.StartsWith("i'm") ) {
+                await message.Channel.SendMessageAsync(content.Replace("i'm", "Hi") + ", I'm dad!");
+            } else if( content.StartsWith("i am") ) {
+                await message.Channel.SendMessageAsync(content.Replace("i am", "Hi") + ", I'm dad!");
+            } else if( content.StartsWith("im") ) {
+                await message.Channel.SendMessageAsync(content.Replace("im", "Hi") + ", I'm dad!");
+            } else if( content.Contains("fuck") || content.Contains("kys") ) {
                 await message.Channel.SendMessageAsync("I raised you better than this!");
-            } else if( message.Content.Contains( "dad" ) && message.Content.Contains("can i be") ) {
-                await message.Channel.SendMessageAsync( "You sure can be" + message.Content.Replace("dad", string.Empty ).Replace("can i be", string.Empty).Replace("your", "my"));
-            } else if( message.Content.Contains("dad joke") ) {
+            } else if( content.Contains( "dad" ) && content.Contains("can i be") ) {
+                await message.Channel.SendMessageAsync( "You sure can be" + content.Replace("dad", string.Empty ).Replace("can i be", string.Empty).Replace("your", "my"));
+            } else if( content.Contains("dad joke") ) {
                 var joke = GiveDadJoke();
                 await message.Channel.SendMessageAsync( joke.Item1 + "\n" + joke.Item2 );
+            } else if( content.Contains( "banaan" )) {
+                await message.Channel.SendMessageAsync( "Lekkere warme hand!" );
             }
         }
         private Task Log (LogMessage msg) {
