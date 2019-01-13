@@ -60,8 +60,8 @@ namespace BetterDad {
                 case 6: return new Tuple<string, string>("Why did the Clydesdale give the pony a glass of water?", "Because he was a little horse!");
                 case 7: return new Tuple<string, string>("Me: 'Hey, I was thinking...", "My dad: 'I thought I smelled something burning.");
                 case 8: return new Tuple<string, string>("How do you make a Kleenex dance?", "Put a little boogie in it!");
-                case 9: return new Tuple<string, string>("Whenever we drive past a graveyard my dad says, 'Do you know why I can’t be buried there?' And we all say, 'Why not?", "One was a salted.");
-                case 10: return new Tuple<string, string>("Two peanuts were walking down the street.", "Tooth hurt-y.");
+                case 9: return new Tuple<string, string>("Whenever we drive past a graveyard my dad says, 'Do you know why I can’t be buried there?' And we all say, 'Why not?", "Because I’m not dead yet!");
+                case 10: return new Tuple<string, string>("Two peanuts were walking down the street.", "One was a salted.");
                 case 11: return new Tuple<string, string>("I used to have a job at a calendar factory but I got the sack because I took a couple of days off.", null);
                 case 12: return new Tuple<string, string>("How do you make holy water?", "You boil the hell out of it.");
                 case 13: return new Tuple<string, string>("When I went to choir practice - Dad: 'Don’t forget a bucket.' Me: 'Why?", "To carry your tune.");
