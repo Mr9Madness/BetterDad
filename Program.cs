@@ -8,7 +8,7 @@ namespace BetterDad {
         public static void Main (string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
 
         public async Task MainAsync () {
-            var client = new DiscordSocketClient ();
+            var client = new DiscordSocketClient();
 
             client.Log += Log;
             client.MessageReceived += MessageReceived;
@@ -22,8 +22,9 @@ namespace BetterDad {
         }
         private async Task MessageReceived (SocketMessage message) {
             string content = message.Content.ToLower();
-
-            if (content.Contains("fuck") || content.Contains("kys")) {
+            if ( ( content.StartsWith("i'm") ||  content.StartsWith("i") || content.StartsWith("im") ) && content.Contains("fuck") && content.Contains( "dad" ) ) {
+                await message.Channel.SendMessageAsync("You better not be!");
+            } else if (content.Contains("fuck") || content.Contains("kys")) {
                 await message.Channel.SendMessageAsync("I raised you better than this!");
             } else if (content.StartsWith("i'm dad") || content.StartsWith("i am dad") || content.StartsWith("im dad") ) {
                 await message.Channel.SendMessageAsync ("No you're not, i'm the best dad!");
