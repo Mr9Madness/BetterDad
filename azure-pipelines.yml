@@ -31,9 +31,8 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
-- task: CopyFilesOverSSH@0
+- task: PublishBuildArtifacts@1
   inputs:
-    sshEndpoint: 'DiscordBotVps'
-    contents: '$(Build.ArtifactStagingDirectory)'
-    targetFolder: '/var/bots/betterdad'
-    failOnEmptySource: true
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'betterdad'
+    publishLocation: 'Container'
