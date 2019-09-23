@@ -13,7 +13,7 @@ namespace BetterDad {
             client.Log += Log;
             client.MessageReceived += MessageReceived;
 
-            string token = "NTMxOTEzMzIxNDUzMDYwMDk2.DxlOnQ.tGMWBEznjoa_RO_NHMtUjjXToao"; // Remember to keep this private!
+            string token  = "DISCORD_TOKEN"; // Remember to keep this private!
             await client.LoginAsync( TokenType.Bot, token );
             await client.StartAsync();
 
