@@ -1,53 +1,74 @@
-﻿using System;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
+using System;
+using System.Threading.Tasks;
 
-namespace BetterDad {
-    public class Program {
-        public static void Main (string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
+namespace BetterDad
+{
+    public class Program
+    {
+        private DiscordSocketClient _client;
 
-        public async Task MainAsync () {
-            var client = new DiscordSocketClient();
+        public static void Main() => new Program().MainAsync().GetAwaiter().GetResult();
 
-            client.Log += Log;
-            client.MessageReceived += MessageReceived;
+        public async Task MainAsync()
+        {
+            var _config = new DiscordSocketConfig { MessageCacheSize = 100 };
+            _client = new DiscordSocketClient(_config);
+            _client.MessageReceived += MessageReceived;
 
-            string token  = "DISCORD_TOKEN"; // Remember to keep this private!
-            await client.LoginAsync( TokenType.Bot, token );
-            await client.StartAsync();
+            const string token  = "DISCORD_TOKEN"; // Remember to keep this private!
+            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.StartAsync();
 
             // Block this task until the program is closed.
-            await Task.Delay( -1 );
-        }
-        private async Task MessageReceived (SocketMessage message) {
-            string content = message.Content.ToLower();
-            if ( ( content.StartsWith("i'm") ||  content.StartsWith("i") || content.StartsWith("im") ) && content.Contains("fuck") && content.Contains( "dad" ) ) {
-                await message.Channel.SendMessageAsync("You better not be!");
-            } else if (content.Contains("fuck") || content.Contains("kys")) {
-                await message.Channel.SendMessageAsync("I raised you better than this!");
-            } else if (content.StartsWith("i'm dad") || content.StartsWith("i am dad") || content.StartsWith("im dad") ) {
-                await message.Channel.SendMessageAsync ("No you're not, i'm the best dad!");
-            } else if( content.StartsWith("i'm") ) {
-                await message.Channel.SendMessageAsync(content.Replace("i'm", "Hi") + ", I'm dad!");
-            } else if( content.StartsWith("i am") ) {
-                await message.Channel.SendMessageAsync(content.Replace("i am", "Hi") + ", I'm dad!");
-            } else if( content.StartsWith("im") ) {
-                await message.Channel.SendMessageAsync(content.Replace("im", "Hi") + ", I'm dad!");
-            } else if( content.Contains( "dad" ) && content.Contains("can i be") ) {
-                await message.Channel.SendMessageAsync( "You sure can be" + content.Replace("dad", string.Empty ).Replace("can i be", string.Empty).Replace("your", "my"));
-            } else if( content.Contains("dad joke") ) { var joke = GiveDadJoke();
-                await message.Channel.SendMessageAsync( joke.Item1 + "\n" + joke.Item2 );
-            } else if( content.Contains( "banaan" )) {
-                await message.Channel.SendMessageAsync( "Lekkere warme hand!" );
-            }
-        }
-        private Task Log (LogMessage msg) {
-            Console.WriteLine( msg.ToString() );
-            return Task.CompletedTask;
+            await Task.Delay(-1);
         }
 
-        private Tuple<string,string> GiveDadJoke()
+        private async Task MessageReceived(SocketMessage message)
+        {
+            string content = message.Content.ToLower();
+
+            if ((content.StartsWith("i'm ") || content.StartsWith("i ") || content.StartsWith("im ")) && content.Contains("fuck"))
+            {
+                await message.Channel.SendMessageAsync("You better not be son!");
+            }
+            else if (content.Contains("fuck") || content.Contains("kys"))
+            {
+                await message.Channel.SendMessageAsync("I raised you better than this!");
+            }
+            else if (content.StartsWith("i'm dad") || content.StartsWith("i am dad") || content.StartsWith("im dad"))
+            {
+                await message.Channel.SendMessageAsync("No you're not, i'm dad! The best dad!!");
+            }
+            else if (content.StartsWith("i'm "))
+            {
+                await message.Channel.SendMessageAsync(content.Replace("i'm ", "Hi ") + ", I'm dad!");
+            }
+            else if (content.StartsWith("i am "))
+            {
+                await message.Channel.SendMessageAsync(content.Replace("i am ", "Hi ") + ", I'm dad!");
+            }
+            else if (content.StartsWith("im "))
+            {
+                await message.Channel.SendMessageAsync(content.Replace("im ", "Hi ") + ", I'm dad!");
+            }
+            else if (content.Contains("dad") && content.Contains("can i be"))
+            {
+                await message.Channel.SendMessageAsync("You sure can be" + content.Replace("dad", string.Empty).Replace("can i be", string.Empty).Replace("your", "my"));
+            }
+            else if (content.Contains("dad joke"))
+            {
+                var joke = GiveDadJoke();
+                await message.Channel.SendMessageAsync(joke.Item1 + "\n" + joke.Item2);
+            }
+            else if (content.Contains("banaan"))
+            {
+                await message.Channel.SendMessageAsync("Lekkere warme hand!");
+            }
+        }
+
+        private Tuple<string, string> GiveDadJoke()
         {
             Random rnd = new Random();
             switch (rnd.Next(15))
@@ -66,8 +87,7 @@ namespace BetterDad {
                 case 11: return new Tuple<string, string>("I used to have a job at a calendar factory but I got the sack because I took a couple of days off.", null);
                 case 12: return new Tuple<string, string>("How do you make holy water?", "You boil the hell out of it.");
                 case 13: return new Tuple<string, string>("When I went to choir practice - Dad: 'Don’t forget a bucket.' Me: 'Why?", "To carry your tune.");
-                case 14: return new Tuple<string, string>( "Two guys walk into a bar, the third one ducks", null );
-                default: break;
+                case 14: return new Tuple<string, string>("Two guys walk into a bar, the third one ducks", null);
             }
             return null;
         }
