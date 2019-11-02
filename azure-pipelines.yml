@@ -3,6 +3,7 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
+
 trigger:
 - master
 
@@ -17,22 +18,16 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 - script: dotnet restore
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
     publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '-r linux-x64 -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'betterdad'
+    ArtifactName: 'voterbot'
     publishLocation: 'Container'
